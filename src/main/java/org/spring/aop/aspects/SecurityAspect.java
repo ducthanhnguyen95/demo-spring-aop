@@ -8,17 +8,16 @@ import org.springframework.core.annotation.Order;
 import java.util.logging.Logger;
 
 @Aspect
-@Order(2)
-public class LoggingAspect {
+@Order(1)
+public class SecurityAspect {
 
-    private final Logger logger = Logger.getLogger(LoggingAspect.class.getName());
+    private final Logger logger = Logger.getLogger(SecurityAspect.class.getName());
 
     @Around(value = "@annotation(org.spring.aop.annotation.ToLog)")
-    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
-        logger.info("Logging Aspect: Calling the intercepted method");
+    public Object secure(ProceedingJoinPoint joinPoint) throws Throwable {
+        logger.info("Security Aspect: Calling the intercepted method");
         Object returnedValue = joinPoint.proceed();
-        logger.info("Logging Aspect: Method executed and returned " + returnedValue);
+        logger.info("Security Aspect: Method executed and returned " + returnedValue);
         return returnedValue;
     }
-
 }
